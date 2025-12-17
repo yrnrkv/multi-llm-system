@@ -107,12 +107,7 @@ class MultiLLMRouter:
         Returns:
             Dictionary mapping provider names to responses
         """
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            return loop.run_until_complete(self.query_all_async(prompt, **kwargs))
-        finally:
-            loop.close()
+        return asyncio.run(self.query_all_async(prompt, **kwargs))
     
     async def query_best_for_use_case_async(
         self,
@@ -173,14 +168,9 @@ class MultiLLMRouter:
         Returns:
             Response from the best available provider
         """
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            return loop.run_until_complete(
-                self.query_best_for_use_case_async(prompt, use_case, **kwargs)
-            )
-        finally:
-            loop.close()
+        return asyncio.run(
+            self.query_best_for_use_case_async(prompt, use_case, **kwargs)
+        )
     
     def get_use_case_explanation(self, use_case: UseCase) -> str:
         """

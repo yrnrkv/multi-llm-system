@@ -136,11 +136,11 @@ class ResponseEvaluator:
             
             # Find most readable (highest Flesch Reading Ease if available)
             most_readable = None
-            highest_readability = -1
+            highest_readability = float('-inf')
             
             for name, eval_data in successful.items():
-                readability_score = eval_data.get("readability", {}).get("flesch_reading_ease", -1)
-                if readability_score > highest_readability:
+                readability_score = eval_data.get("readability", {}).get("flesch_reading_ease", float('-inf'))
+                if readability_score > highest_readability and readability_score != float('-inf'):
                     highest_readability = readability_score
                     most_readable = name
             

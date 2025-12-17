@@ -97,7 +97,7 @@ class OpenRouterProvider(BaseLLMProvider):
                     try:
                         error_detail = response.json()
                         error_msg += f" - {error_detail}"
-                    except:
+                    except (ValueError, KeyError):
                         pass
                     
                     return LLMResponse(

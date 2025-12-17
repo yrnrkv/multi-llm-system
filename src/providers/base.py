@@ -66,13 +66,7 @@ class BaseLLMProvider(ABC):
             LLMResponse object with model output and metadata
         """
         import asyncio
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        return loop.run_until_complete(self.generate_async(prompt, **kwargs))
+        return asyncio.run(self.generate_async(prompt, **kwargs))
     
     def _measure_latency(self, func):
         """Decorator to measure function execution time."""
